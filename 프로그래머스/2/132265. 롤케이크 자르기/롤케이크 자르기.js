@@ -1,19 +1,20 @@
 function solution(topping) {
-    let result = 0
-    
-    const leftTopping = new Set()
-    const rightTopping = new Map()
-    
+    let result=0
+    const left = new Set()
+    const right = new Map()
     for(const t of topping){
-        rightTopping.set(t,(rightTopping.get(t) || 0)+1)
+        right.set(t,(right.get(t) || 0)+1)
     }
+    
     for(const t of topping){
-        leftTopping.add(t)
-        rightTopping.set(t,rightTopping.get(t)-1)
-        if(rightTopping.get(t)===0){
-            rightTopping.delete(t)
+        left.add(t)
+        right.set(t,right.get(t)-1)
+        
+        if(right.get(t)===0){
+            right.delete(t)
         }
-        if(rightTopping.size===leftTopping.size){
+        
+        if(left.size===right.size){
             result+=1
         }
     }
