@@ -1,11 +1,14 @@
 function solution(brown, yellow) {
-    const block = brown+yellow;
-    let h=1
-    
+    const block = brown + yellow // 전체 블록 갯수
+    let yellow_h = 1 // 노란 블럭의 높이
     while(true){
-        let w = yellow / h
-        if(block === (w+2)*(h+2)) return [w+2,h+2]
-        h++
+        if(yellow%yellow_h===0){
+            const yellow_w = yellow/yellow_h
+            if(block === (yellow_w+2)*(yellow_h+2)){
+                return [yellow_w+2,yellow_h+2]
+            }
+        }
+        yellow_h++
     }
     
 }
