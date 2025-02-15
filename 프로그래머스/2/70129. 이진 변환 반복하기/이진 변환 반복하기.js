@@ -1,45 +1,19 @@
 function solution(s) {
-    let total_count =0
-    let zero_count =0
-    while(s!=='1'){
-        let s_length = s.length
-        let one = s.split('').filter(i=>i==='1')
-        zero_count += s_length-one.length
-        s= (one.length).toString(2)
-        total_count++
-    }
+    let current_str = s // 현재 문자열
+    let count = 0 // 이진 변환의 횟수
+    let zero_count = 0 // 제거된 0의 개수
 
-    return [total_count,zero_count]
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function solution(s){
-    let currentString = s
-    let count=0
-    let zero_count=0
-    while(currentString!=='1'){
-        const currentLength = currentString.length
-        const nextString = currentString.split('0').join('')
-        const nextStringLength = nextString.length
-        zero_count+=currentLength-nextStringLength
+    while(current_str!=='1'){
+        const current_str_length = current_str.length // 현재 문자열의 길이
+        const next_str = current_str.split('0').join('') // 0 제거
+        const next_str_length = next_str.length // 0제거후 문자열의 길이
+        zero_count += current_str_length - next_str_length // 제거 된 0의 개수 추가
         
-        currentString=nextStringLength.toString(2)
-        count+=1
+        current_str = next_str_length.toString(2) // 현재 문자열 없데이트
+        
+        count+=1 // 이진변환의 횟수
+        
     }
+    
     return [count,zero_count]
 }
