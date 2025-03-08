@@ -3,13 +3,13 @@ function solution(strs, t) {
     const dp = Array(n+1).fill(Infinity)
     
     dp[0]=0 // 초기값 초기화
-    for(let i=1;i<=n;i++){
-        for(let j=Math.max(0,i-5);j<i;j++){
-            const currentString = t.slice(j,i)
+    for(let end=1;end<=n;end++){
+        for(let start=Math.max(1,end-5);start<=end;start++){
+            const currentString = t.slice(start-1,end)
             if(strs.includes(currentString)){
-                dp[i] = Math.min(dp[i],dp[j]+1)
+                dp[end] = Math.min(dp[end],dp[start-1]+1)
             }
         }
     }
-    return dp[n]===Infinity?-1:dp[n]
+    return dp[n]===Infinity ? -1 :dp[n]
 }
