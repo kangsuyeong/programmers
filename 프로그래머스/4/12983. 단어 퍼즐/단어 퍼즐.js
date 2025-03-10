@@ -7,10 +7,9 @@ function solution(strs, t) {
         for(let j=Math.max(1,i-5);j<=i;j++){
             const cur_str = t.slice(j-1,i)
             if(strs.includes(cur_str)){
-                dp[i] = Math.min(dp[i],dp[j-1]+1)
+                dp[i] = Math.min(dp[j-1]+1,dp[i])
             }
         }
     }
-    
-    return dp[n]===Infinity ? -1 : dp[n]
+    return dp[n]===Infinity ? -1: dp[n]
 }
