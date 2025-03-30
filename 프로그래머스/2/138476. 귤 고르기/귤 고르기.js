@@ -1,15 +1,22 @@
 function solution(k, tangerine) {
-    tangerine.sort((a,b)=>a-b)
-    const frequency = {}
-    let count=0
+    let result =0 // 귤의 종류
+    const count={} // 귤의 갯수를 세는 객체
+    let countSum = 0 // 현재까지 귤의 갯수
+    
+    // 귤 갯수 세기
     for(const t of tangerine){
-        frequency[t] = (frequency[t]||0) + 1
+        count[t] = (count[t]||0) + 1
     }
     
-    const frequency_array = Object.entries(frequency).sort((a,b)=>b[1]-a[1])
-
-    for(let i=0;i<frequency_array.length;i++){
-        count+=frequency_array[i][1]
-        if(count>=k) return i+1
+    // value값만 뽑아서 정렬
+    const count_arr = Object.values(count).sort((a,b)=>b-a)
+    
+    for(const count of count_arr){
+        countSum+=count
+        result+=1
+        if(countSum>=k) break;
     }
+    return result
+    
+    
 }
