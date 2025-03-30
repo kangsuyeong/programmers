@@ -1,17 +1,14 @@
 function solution(d, budget) {
-    const n = d.length
     // 정렬하기
     d.sort((a,b)=>a-b)
-    
+    let current_money = 0 // 현재 사용한 금액
     let result=0
-    let spentMoney=0
     
     for(const money of d){
-        const new_money = money+spentMoney
-        if(new_money>budget) break;
-        
-        result+=1
-        spentMoney=new_money
+        current_money+=money // 현재 사용한 금액 업데이트
+        if(current_money>budget) break
+        result++
     }
+    
     return result
 }
