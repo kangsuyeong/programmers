@@ -1,30 +1,16 @@
 function solution(people, limit) {
-    
-    // 필요한 구명보트 수
-    let count =0
-
-    // index
+    let result=0
     let left = 0
     let right = people.length-1
     
-    // 정렬하기
     people.sort((a,b)=>a-b)
     
-    while(left<right){
+    while(left<=right){
         if(people[left]+people[right]<=limit){
-            left++
-            right--
-            count++
+            left+=1
         }
-        else{
-            right--
-            count++
-        }
+        right-=1
+        result+=1
     }
-    
-    if(left===right){
-        count++
-    }
-    
-    return count
+    return result
 }
