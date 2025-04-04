@@ -1,9 +1,11 @@
 function solution(people, limit) {
-    let count =0
-    let left = 0
-    let right = people.length - 1
-    
+    // 정렬하기
     people.sort((a,b)=>a-b)
+    
+    let left = 0 // 왼쪽에서 시작하는 index
+    let right = people.length - 1 // 오른쪽에서 시작하는 index
+    
+    let count = 0 // 구명보트 개수
     
     while(left<=right){
         if(people[left] + people[right]<=limit){
