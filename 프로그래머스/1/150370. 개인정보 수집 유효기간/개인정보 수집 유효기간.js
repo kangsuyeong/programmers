@@ -12,12 +12,18 @@ function solution(today, terms, privacies) {
     
     for(let i=0;i<privacies.length;i++){
         const[start,term] = privacies[i].split(' ') // 개인정보 수집일자, 약관종류
-        const today_date = new Date(today) // 오늘날짜
-        const start_date = new Date(start) // 개인정보 수집 일자
-
+        const [y,m,d] = today.split('.')
+        const today_date = new Date(y,m-1,d) // 오늘날짜
+        
+        const [sy,sm,sd] = start.split('.')
+        const newM = sm-1+terms_obj[term]
+        
+        const ey = Number(sy) + Math.floor(newM/12)
+        const em = newM%12
+        const expire_date = new Date(ey,em,sd) // 개인정보 수집 일자
+        
         // 개인정보 수집 일자에 유효기간 더하기
-        start_date.setMonth(start_date.getMonth() + terms_obj[term])
-        if(today_date>=start_date){
+        if(today_date>=expire_date){
             result.push(i+1)
         }
         
