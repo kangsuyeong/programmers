@@ -1,32 +1,25 @@
 function solution(today, terms, privacies) {
+    const n = privacies.length
+    const result =[]
     
-    const result=[]
-    
-    const terms_obj={} // 약관을 객체로 저장
-    
-    // 약관 계산
+    // map 형태로 저장
+    const terms_map={}
     for(const t of terms){
         const [term,period] = t.split(' ')
-        terms_obj[term] = Number(period)
+        terms_map[term] = Number(period)
     }
     
-    for(let i=0;i<privacies.length;i++){
-        const[start,term] = privacies[i].split(' ') // 개인정보 수집일자, 약관종류
-        const [y,m,d] = today.split('.')
-        const today_date = new Date(y,m-1,d) // 오늘날짜
+    for(let i=0;i<n;i++){
+        const [privacy,term] = privacies[i].split(' ')
+        const [ty,tm,td] = today.split('.')
+        const today_date = new Date(ty,tm-1,td)
         
-        const [sy,sm,sd] = start.split('.')
-        const newM = sm-1+terms_obj[term]
+        const [ey,em,ed] = privacy.split('.')
+        const expire_date = new Date(ey,Number(em)+terms_map[term]-1,ed)
         
-        const ey = Number(sy) + Math.floor(newM/12)
-        const em = newM%12
-        const expire_date = new Date(ey,em,sd) // 개인정보 수집 일자
-        
-        // 개인정보 수집 일자에 유효기간 더하기
         if(today_date>=expire_date){
             result.push(i+1)
         }
-        
     }
     return result
 }
