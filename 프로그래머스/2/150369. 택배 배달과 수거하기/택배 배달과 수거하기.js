@@ -1,12 +1,11 @@
 function solution(cap, n, deliveries, pickups) {
-    let result=0
-    let d=0,p=0 // 남은 배달량
+    let result = 0 // 최소 이동거리
+    let d = 0 
+    let p = 0
     
     for(let i=n-1;i>=0;i--){
-        d +=deliveries[i]
-        p +=pickups[i]
-        
-        // 남은 배달량이 있을 때 방문
+        d+=deliveries[i]
+        p+=pickups[i]
         while(d>0 || p>0){
             d-=cap
             p-=cap
