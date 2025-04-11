@@ -1,8 +1,7 @@
 function solution(today, terms, privacies) {
-    const n = privacies.length
     const result =[]
-    
-    // map 형태로 저장
+    const n = privacies.length
+    // 약관 map 형태로 만들기
     const terms_map={}
     for(const t of terms){
         const [term,period] = t.split(' ')
@@ -10,10 +9,13 @@ function solution(today, terms, privacies) {
     }
     
     for(let i=0;i<n;i++){
-        const [privacy,term] = privacies[i].split(' ')
+        const[privacy,term] = privacies[i].split(' ')
+        
+        // today date
         const [ty,tm,td] = today.split('.')
         const today_date = new Date(ty,tm-1,td)
         
+        // 만료 기간
         const [ey,em,ed] = privacy.split('.')
         const expire_date = new Date(ey,Number(em)+terms_map[term]-1,ed)
         
