@@ -14,12 +14,20 @@ class Queue{
     }
 }
 
+// BFS를 써야한다.
 function solution(board) {
     const n = board.length
     const m = board[0].length
-    const visited = Array.from({length:n},()=>Array(m).fill(false))
+    let start = [0,0]
     
-    let start = [0,0] // 시작 지점
+    // 첫번째 위치 찾기
+    for(let i=0;i<n;i++){
+        for(let j=0;j<m;j++){
+            if(board[i][j]==='R'){
+                start=[i,j]
+            }
+        }
+    }
     
     const directions = [
         [1,0],
@@ -29,29 +37,15 @@ function solution(board) {
     ]
     
     function isRange(x,y){
-        return 0<=x && x<n && 0<= y && y<m
+        return 0<=x && x<n && 0<=y && y<m
     }
-    
-    function findStart(){
-        for(let i=0;i<n;i++){
-            for(let j=0;j<m;j++){
-                if(board[i][j]==='R'){
-                    return [i,j]
-                }
-            }
-        }
-    }
-    
-    start = findStart()
-    
+    const visited = Array.from({length:n},()=>Array(m).fill(false))
     const queue = new Queue()
     const [x,y] = start
     queue.push([x,y,0])
     visited[x][y] = true
-    
     while(queue.size()>0){
-        const [x,y,count] = queue.pop()
-        
+        const [x,y,distance] = queue.pop()
         for(const [dx,dy] of directions){
             let nx = x
             let ny = y
@@ -59,19 +53,16 @@ function solution(board) {
                 nx+=dx
                 ny+=dy
             }
+            if(board[nx][ny]==='G'){
+                return distance+1
+            }
+            
             if(!visited[nx][ny]){
-                
-                if(board[nx][ny]==='G'){
-                    return count+1
-                }
-                
-                queue.push([nx,ny,count+1])
-                visited[nx][ny]=true
+                queue.push([nx,ny,distance+1])
+                visited[nx][ny] = true
             }
         }
-        
     }
-    
     
     return -1
 }
