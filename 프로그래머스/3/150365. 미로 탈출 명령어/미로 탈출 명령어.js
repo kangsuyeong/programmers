@@ -1,6 +1,5 @@
 function solution(n, m, x, y, r, c, k) {
     let result = ''
-    
     const directions = [
         [1,0,'d'],
         [0,-1,'l'],
@@ -9,32 +8,32 @@ function solution(n, m, x, y, r, c, k) {
     ]
     
     function isRange(x,y){
-        return 1<=x && x<=n && 1<=y && y<=m
+        return x>=1 && x<=n && y>=1 && y<=m
     }
     
     function dfs(x,y,depth,string){
+        if(result) return 
+        const distance = Math.abs(x-r) + Math.abs(y-c) // 현재 남은거리
+        const remain = k-depth // 남은 움직일 수 있는거리
         
-        const dist = Math.abs(x-r) + Math.abs(y-c) // 현재 위치에서 부터 탈출 지점까지 거리
-        const remain = k - depth // 움직을 수 있는 거리
-        
-        if(dist >remain || (remain-dist)%2!==0) return
+        if(distance > remain || (remain-distance)%2!==0) return
         
         if(depth===k){
             if(x===r && y===c){
-                result= string
+                result=string
             }
             return
         }
         
         for(const [dx,dy,dir] of directions){
-            const nx = x+ dx
+            const nx = x + dx
             const ny = y + dy
             if(isRange(nx,ny)){
                 dfs(nx,ny,depth+1,string+dir)
-                if(result) return
             }
         }
     }
     dfs(x,y,0,'')
-    return result ? result : 'impossible'
+    
+    return result || 'impossible'
 }
