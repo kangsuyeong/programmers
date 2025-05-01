@@ -1,9 +1,9 @@
-function isMatch(userID,bannedID){
-    if(userID.length!==bannedID.length) return false
+function isValid(userId,bannedId){
+    if(userId.length!==bannedId.length) return false
     
-    for(let i=0;i<userID.length;i++){
-        if(bannedID[i]==='*') continue
-        if(userID[i]!==bannedID[i]) return false
+    for(let i=0;i<userId.length;i++){
+        if(bannedId[i]==='*') continue
+        if(userId[i]!==bannedId[i]) return false
     }
     return true
 }
@@ -19,9 +19,7 @@ function solution(user_id, banned_id) {
         }
         
         for(let i=0;i<user_id.length;i++){
-            if(selected.has(user_id[i])) continue
-            
-            if(isMatch(user_id[i],banned_id[index])){
+            if(!selected.has(user_id[i]) && isValid(user_id[i],banned_id[index])){
                 selected.add(user_id[i])
                 dfs(index+1,selected)
                 selected.delete(user_id[i])
