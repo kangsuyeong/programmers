@@ -3,8 +3,7 @@ function solution(A, B) {
     B.sort((a,b)=>a-b)
     
     let score = 0
-    let index = 0 // A의 비교대상
-    
+    let index = 0  // A의 비교대상
     for(let i=0;i<B.length;i++){
         if(B[i]>A[index]){
             score+=1
