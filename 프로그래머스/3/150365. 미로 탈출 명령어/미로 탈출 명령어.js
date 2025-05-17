@@ -7,33 +7,34 @@ function solution(n, m, x, y, r, c, k) {
         [-1,0,'u']
     ]
     
-    function isRange(x,y){
-        return x>=1 && x<=n && y>=1 && y<=m
+    function isRange(cx,cy){
+        return cx>0 && cx<=n && cy>0 && cy<=m
     }
     
-    function dfs(x,y,depth,string){
-        if(result) return 
-        const distance = Math.abs(x-r) + Math.abs(y-c) // 현재 남은거리
-        const remain = k-depth // 남은 움직일 수 있는거리
-        
-        if(distance > remain || (remain-distance)%2!==0) return
-        
+    function dfs(cx,cy,depth,string){
         if(depth===k){
-            if(x===r && y===c){
-                result=string
+            if(cx===r && cy===c){
+                result = string
             }
             return
         }
         
+        if(result) return // result 값이 이미 있다면 탐색 X
+        
+        const distance = Math.abs(cx-r) + Math.abs(cy-c) // 현재 남은 거리
+        const can_move = k-depth // 움직일 수 있는 횟수
+        
+        if(distance>can_move || (can_move-distance)%2!==0) return
+        
         for(const [dx,dy,dir] of directions){
-            const nx = x + dx
-            const ny = y + dy
+            const nx = cx + dx
+            const ny = cy + dy
             if(isRange(nx,ny)){
                 dfs(nx,ny,depth+1,string+dir)
             }
         }
+        
     }
     dfs(x,y,0,'')
-    
-    return result || 'impossible'
+    return result ? result : 'impossible'
 }
