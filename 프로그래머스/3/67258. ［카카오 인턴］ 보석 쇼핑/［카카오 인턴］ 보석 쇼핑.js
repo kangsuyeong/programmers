@@ -1,28 +1,33 @@
 function solution(gems) {
+    const n = gems.length
     const gemsKinds = new Set(gems).size
     const gemsMap = new Map()
     let left = 0
-    let min_length = gems.length
-    let result = [1,gems.length]
+    let right = 0
+    let result = [1,n]
+    let min_length = n
     
-    for(let right=0;right<gems.length;right++){
-        const gemRight = gems[right]
-        gemsMap.set(gemRight,(gemsMap.get(gemRight)||0) + 1)
+    while(right<n){
+        const gemsRight = gems[right]
+        gemsMap.set(gemsRight,(gemsMap.get(gemsRight)||0)+1)
         
-        while(gemsKinds===gemsMap.size){
-            if(min_length>right - left + 1){
-                min_length = right - left + 1
-                result = [left+1,right+1]
+        while(gemsMap.size===gemsKinds){
+            const current_length = right-left + 1
+            if(min_length>current_length){
+                min_length = current_length
+                result=[left+1,right+1]
             }
             
-            const gemleft = gems[left]
-            gemsMap.set(gemleft,gemsMap.get(gemleft) - 1)
+            const gemsLeft = gems[left]
             
-            if(gemsMap.get(gemleft)===0){
-                gemsMap.delete(gemleft)
+            gemsMap.set(gemsLeft,gemsMap.get(gemsLeft)-1)
+            
+            if(gemsMap.get(gemsLeft)===0){
+                gemsMap.delete(gemsLeft)
             }
             left++
         }
+        right++
     }
     return result
 }
