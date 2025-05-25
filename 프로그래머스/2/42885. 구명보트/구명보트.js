@@ -1,18 +1,19 @@
 function solution(people, limit) {
-    // 정렬하기
+    let count = 0 // 보트의 개수
+    const n = people.length
     people.sort((a,b)=>a-b)
     
-    let left = 0 // 왼쪽에서 시작하는 index
-    let right = people.length - 1 // 오른쪽에서 시작하는 index
-    
-    let count = 0 // 구명보트 개수
-    
+    let left = 0
+    let right = n-1
     while(left<=right){
-        if(people[left] + people[right]<=limit){
-            left+=1
+        // 만약 왼쪽 오른쪽 다 태울수 있다면
+        if(people[left] + people[right] <=limit){
+            left++
         }
-        right-=1
-        count+=1
+        
+        // 기본적으로 오른쪽만 태우기
+        right--
+        count++
     }
     return count
 }
