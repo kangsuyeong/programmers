@@ -9,8 +9,7 @@ function solution(s){
         }
         else{
             if(stack.length===0) return false
-            const item = stack.pop()
-            if(item===')') return false
+            stack.pop()
         }
     }
     
