@@ -1,4 +1,4 @@
-function solution(n, left, right) {
+function solution(n, left, right){
     const result = []
     
     for(let i=left;i<=right;i++){
