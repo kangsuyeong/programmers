@@ -1,7 +1,7 @@
 function solution(s){
     if(s.length%2!==0) return false
     
-    const stack = []
+    const stack=[]
     
     for(const string of s){
         if(string==='('){
@@ -16,4 +16,5 @@ function solution(s){
     if(stack.length>0) return false
     
     return true
+    
 }
