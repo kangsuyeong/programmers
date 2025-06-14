@@ -7,7 +7,7 @@ function solution(clothes) {
     }
     
     for(const [_,value] of clothMap){
-        result*=value+1
+        result *= value+1
     }
     return result-1
 }
