@@ -1,38 +1,33 @@
-function dfs(graph,node,vistied){
-    for(const next of graph[node] || []){
-        if(vistied.has(next)) continue
-        
-        vistied.add(next)
-        dfs(graph,next,vistied)
-    }
-}
-
 function solution(n, results) {
-    let result = 0
-    
-    // 이긴 사람을 계산할 수 있는 인접 리스트
-    const winList = {}
-    // 진 사람을 계산할 수 있는 인접 리스트
-    const loseList = {}
+    // 경기 결과를 계산하는 배열
+    const graph = Array.from({length:n+1},()=>Array(n+1).fill(0))
     
     for(const [winner,loser] of results){
-        winList[winner] = winList[winner] || []
-        loseList[loser] = loseList[loser] || []
-        
-        winList[winner].push(loser)
-        loseList[loser].push(winner)
+        graph[winner][loser] = 1 // 승리
+        graph[loser][winner] = -1 // 패배
     }
     
+    // 플로이드 알고리즘
+    for(let k=1;k<=n;k++){ // 경유지
+        for(let i=1;i<=n;i++){ // 본인
+            for(let j=1;j<=n;j++){ // 상대방
+                if(graph[i][k]===1 && graph[k][j]===1){
+                    graph[i][j]=1
+                }
+                if(graph[i][k]===-1 && graph[k][j]===-1){
+                    graph[i][j]=-1
+                }
+            } 
+        }
+    }
+    
+    let result = 0
     for(let i=1;i<=n;i++){
-        const winSet = new Set()
-        const loseSet = new Set()
-        
-        dfs(winList,i,winSet)
-        dfs(loseList,i,loseSet)
-        
-        const total = winSet.size + loseSet.size
-        
-        if(total===n-1) result++
+        let known = 0
+        for(let j=1;j<=n;j++){
+            if(i!==j && graph[i][j]!==0) known++
+        }
+        if(known===n-1) result++
     }
     return result
 }
