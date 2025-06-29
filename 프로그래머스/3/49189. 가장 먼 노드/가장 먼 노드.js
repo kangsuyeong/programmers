@@ -2,6 +2,7 @@ class Queue{
     items=[]
     rear=0
     front=0
+    
     push(item){
         this.items.push(item)
         this.rear++
@@ -14,29 +15,35 @@ class Queue{
     }
 }
 
+
 function solution(n, edge) {
+    // 인접 리스트 만들기
     const adjList = {}
-    for(const [start,end] of edge){
-        if(!adjList[start]) adjList[start] = []
-        if(!adjList[end]) adjList[end] = []
+    for(const [n1,n2] of edge){
+        adjList[n1] = adjList[n1] || []
+        adjList[n2] = adjList[n2] || []
         
-        adjList[start].push(end)
-        adjList[end].push(start)
+        adjList[n1].push(n2)
+        adjList[n2].push(n1)
     }
+    
+    // 거리를 저장하는 배열
     const distance = Array(n+1).fill(-1)
-    const queue = new Queue()
-    queue.push([1,1])
-    distance[1] = 1
-    while(queue.size()>0){
-        const [cur_dis,item] = queue.pop()
-        for(const neighbor of adjList[item]){
-            if(distance[neighbor]>0) continue
+    const q = new Queue()
+    q.push([1,0]) // [node,dist]
+    distance[1] = 0
+    
+    while(q.size()>0){
+        const [node,dist] = q.pop()
+        for(const neighbor of adjList[node]){
+            if(distance[neighbor]>=0) continue
             
-            queue.push([cur_dis+1,neighbor])
-            distance[neighbor] = cur_dis+1
+            q.push([neighbor,dist+1])
+            distance[neighbor] = dist+1
         }
     }
-   const maxNum = Math.max(...distance)
-   const count = distance.filter(d=>d===maxNum)
-   return count.length
+    
+    const maxNum = Math.max(...distance)
+    const count = distance.filter(d=>d===maxNum).length
+    return count
 }
