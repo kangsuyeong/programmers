@@ -1,18 +1,19 @@
+
 function solution(numbers, target) {
-    let count = 0
+    let result = 0
     
-    function dfs(index,cur_num){
+    function dfs(index,total){
         if(index===numbers.length){
-            if(cur_num===target){
-                count+=1
+            if(total===target){
+                result++
             }
             return
         }
-        
-        dfs(index+1,cur_num+numbers[index])
-        dfs(index+1,cur_num-numbers[index])
+        dfs(index+1,total+numbers[index])
+        dfs(index+1,total-numbers[index])
     }
     
     dfs(0,0)
-    return count
+    
+    return result
 }
