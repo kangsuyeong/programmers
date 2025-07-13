@@ -1,12 +1,12 @@
 function solution(n) {
     let result = 0
-    const queen = []
+    const queen =  []
     
     function isValid(row,col){
         for(let i=0;i<row;i++){
             if(queen[i]===col || Math.abs(col-queen[i])===row-i) return false
         }
-        return true
+        return true 
     }
     
     function dfs(row){
