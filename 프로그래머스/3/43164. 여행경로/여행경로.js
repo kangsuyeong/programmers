@@ -1,16 +1,15 @@
 function solution(tickets) {
-    const visited = Array(tickets.length).fill(false);
-    let result = [];
-    let found = false;
-
     tickets.sort()
     
+    const visited = Array(tickets.length).fill(false)
+    let result = []
+    let found = false
     
-    function dfs(current,path,depth){
+    function dfs(depth,path,current){
         if(found) return
         
         if(depth===tickets.length){
-            result = [...path]
+            result=[...path]
             found=true
             return
         }
@@ -18,15 +17,14 @@ function solution(tickets) {
         for(let i=0;i<tickets.length;i++){
             const [start,end] = tickets[i]
             if(!visited[i] && current===start){
-                visited[i] = true
-                dfs(end,[...path,end],depth+1)
-                visited[i] = false
+                visited[i]=true
+                dfs(depth+1,[...path,end],end)
+                visited[i]=false
             }
         }
-        
     }
     
-    dfs('ICN',['ICN'],0)
+    dfs( 0,["ICN"],"ICN");
     
     return result
 }
