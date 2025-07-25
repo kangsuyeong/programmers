@@ -1,10 +1,10 @@
 function solution(citations) {
-    let index = 0
+    citations.sort((a,b)=>b-a)
     
-    for(let i=1;i<=citations.length;i++){
-        if(citations.filter(v=>v>=i).length>=i){
-            index = i
-        }
+    let h=0
+    
+    while(h<citations.length && citations[h]>h){
+        h++
     }
-    return index
+    return h
 }
