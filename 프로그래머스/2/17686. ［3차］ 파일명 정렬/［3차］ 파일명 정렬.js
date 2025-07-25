@@ -1,33 +1,31 @@
 function splitFile(file){
-    let head=''
+    let head = ''
     let number = ''
-    let i=0
     
-    // 문자열만
-    while(i<file.length && isNaN(parseInt(file[i]))){
-        head+=file[i]
-        i++
+    let index = 0
+    
+    // head 계산하기 -> 숫자가 나올때까지 계산
+    while(index < file.length && isNaN(parseInt(file[index]))){
+        head+=file[index]
+        index++
+    }
+    // number 계산하기 -> 문자가 나올때까지 계산
+    while(index < file.length && number.length<5  && !isNaN(parseInt(file[index]))){
+        number+=file[index]
+        index++
     }
     
-    // 숫자만
-    while(i<file.length && number.length<5 && !isNaN(parseInt(file[i]))){
-        number+=file[i]
-        i++
-    }
-    
-    const tail = file.slice(i)
-    
-    return [head,number,tail]
+    return [head,number]
 }
 
 function solution(files) {
-    return files.sort((a,b)=>{
-        const [headA,numA] = splitFile(a)
-        const [headB,numB] = splitFile(b)
-        
-        const headComp = headA.toLowerCase().localeCompare(headB.toLowerCase())
-        if(headComp!==0) return headComp
-        
-        return Number(numA) - Number(numB)
-    })
+     return files.sort((a,b)=>{
+         const [headA,numberA] = splitFile(a)
+         const [headB,numberB] = splitFile(b)
+         
+         const headComp = headA.toLowerCase().localeCompare(headB.toLowerCase())
+         if(headComp!==0) return headComp
+         
+         return Number(numberA) - Number(numberB)
+     })
 }
