@@ -6,6 +6,7 @@ function solution(word) {
         if(depth===5) return
         
         words.push(current)
+        
         for(let i=0;i<5;i++){
             dfs(current+chars[i],depth+1)
         }
@@ -14,6 +15,5 @@ function solution(word) {
     for(let i=0;i<5;i++){
         dfs(chars[i],0)
     }
-    
-    return words.indexOf(word) + 1;
+    return words.indexOf(word) + 1
 }
