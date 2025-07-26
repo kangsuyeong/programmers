@@ -1,5 +1,5 @@
 function solution(word) {
-    const chars = [ 'A', 'E', 'I', 'O', 'U']
+    const chars = ['A', 'E', 'I', 'O', 'U']
     const words = []
     
     function dfs(current,depth){
@@ -15,5 +15,5 @@ function solution(word) {
     for(let i=0;i<5;i++){
         dfs(chars[i],0)
     }
-    return words.indexOf(word) + 1
+    return words.indexOf(word)+1
 }
