@@ -1,27 +1,28 @@
 function solution(n) {
     let result = 0
-    const queen =  []
+    let queen = []
     
     function isValid(row,col){
-        for(let i=0;i<row;i++){
-            if(queen[i]===col || Math.abs(col-queen[i])===row-i) return false
+        for(const [nr,nc] of queen){
+            if(nc===col || Math.abs(row - nr) === Math.abs(col - nc)) return false
         }
-        return true 
+        return true
     }
     
     function dfs(row){
         if(row===n){
             result++
+            return
         }
-        // col 탐색
+        
         for(let col=0;col<n;col++){
             if(isValid(row,col)){
-                queen[row] = col
+                queen.push([row,col])
                 dfs(row+1)
+                queen.pop()
             }
         }
     }
-    
     dfs(0)
     
     return result
