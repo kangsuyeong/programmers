@@ -1,52 +1,46 @@
-
-
 function solution(n, build_frame) {
-    const result = []
+    const results = new Set()
+    
+    // 기둥이 있는지
+    function hasP(x,y){
+        return results.has(`${x},${y},0`)
+    }
+    
+    // 보가 있는지
+    function hasB(x,y){
+        return results.has(`${x},${y},1`)
+    }
+    
+    // 기둥 설치 유뮤
+    function canP(x,y){
+        return y===0 || hasB(x,y) || hasB(x-1,y) || hasP(x,y-1)
+    }
+    
+    // 보 설치 유무
+    function canB(x,y){
+        return hasP(x,y-1) || hasP(x+1,y-1) ||(hasB(x-1,y) && hasB(x+1,y))
+    }
     
     function isValid(){
-        // 현재 result 순회
-        for(const [x,y,a] of result){
-            // 기둥일 경우
-            const 바닥위 = y===0
-            const 보의한쪽끝부분위 
-            = result.some(([nx,ny,na])=>na===1 && ((nx===x && ny===y)|| (nx+1===x && ny===y)))
-            const 또다른기둥위
-            = result.some(([nx,ny,na])=>na===0 && nx===x && ny+1===y)
-            
-            // 보일 경우
-            const 한쪽끝부분이기둥위
-            = result.some(([nx,ny,na])=>na===0 && ((nx-1===x && y===ny+1) || (nx===x && y===ny+1)) )
-            const 양쪽끝부분이다른보와동시에연결
-            = result.some(([nx,ny,na])=>na===1 && nx+1===x && y===ny) &&
-              result.some(([nx,ny,na])=>na===1 && nx===x+1 && y===ny)
-            
-            // 기둥일 경우
-            if(a===0){
-                if(바닥위 || 보의한쪽끝부분위 || 또다른기둥위) continue
-                
-                return false
-            }
-            // 보일 경우
-            else{
-                if(한쪽끝부분이기둥위 || 양쪽끝부분이다른보와동시에연결) continue
-                return false
-            }
+        for(const result of results){
+            const [x,y,a] = result.split(',').map(Number)
+            if(a===0 && !canP(x,y)) return false
+            if(a===1 && !canB(x,y)) return false
         }
         return true
     }
     
+    
     for(const [x,y,a,b] of build_frame){
-        // 설치일 경우
+        const key = `${x},${y},${a}`
         if(b===1){
-            result.push([x,y,a])
-            if(!isValid()) result.pop()
+            results.add(key)
+            if(!isValid()) results.delete(key)
         }
-        // 삭제일 경우
         else{
-            const index = result.findIndex(([nx,ny,na])=>nx===x && ny===y && na===a)
-            const temp = result.splice(index,1)
-            if(!isValid()) result.push(temp[0])
+            results.delete(key)
+            if(!isValid()) results.add(key)
         }
     }
-    return result.sort((a,b)=>a[0]-b[0] || a[1]-b[1] || a[2]-b[2])
+    return [...results].map(v=>v.split(',').map(Number)).sort((a,b)=>a[0]-b[0] || a[1]-b[1] || a[2]-b[2])
 }
