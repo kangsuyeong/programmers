@@ -1,6 +1,6 @@
 function solution(N, number) {
-    const dp = Array.from({length:9},()=>new Set())
     
+    const dp = Array.from({length:9},()=>new Set())
     for(let i=1;i<=8;i++){
         dp[i].add(Number(N.toString().repeat(i)))
         
@@ -14,9 +14,7 @@ function solution(N, number) {
                 }
             }
         }
-        
         if(dp[i].has(number)) return i
     }
-    
     return -1
 }
