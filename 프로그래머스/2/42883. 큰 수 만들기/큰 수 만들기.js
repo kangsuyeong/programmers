@@ -12,6 +12,5 @@ function solution(number, k) {
     if(k>0){
         stack.splice(stack.length-k,k)
     }
-    
     return stack.join('')
 }
