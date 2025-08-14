@@ -1,10 +1,10 @@
 function solution(n) {
     let result = 0
-    const queen = []
+    const queen=[]
     
     function isValid(row,col){
         for(const [nr,nc] of queen){
-            if(col===nc || Math.abs(nr-row)===Math.abs(nc-col)) return false
+            if(col===nc || Math.abs(row-nr)===Math.abs(col-nc)) return false
         }
         return true
     }
@@ -14,7 +14,6 @@ function solution(n) {
             result++
             return
         }
-        
         for(let col=0;col<n;col++){
             if(isValid(row,col)){
                 queen.push([row,col])
@@ -22,7 +21,6 @@ function solution(n) {
                 queen.pop()
             }
         }
-        
     }
     
     dfs(0)
