@@ -1,22 +1,20 @@
 function solution(m, n, puddles) {
-    
-    // dp[행][열]
     const dp = Array.from({length:n+1},()=>Array(m+1).fill(0))
     
-    // 물 웅덩이 표시 x=열 y=행
-    for(const [x,y] of puddles){
-        dp[y][x] = -1
+    for(const [m,n] of puddles){
+        dp[n][m] = -1
     }
     dp[1][1] = 1
+    
     for(let i=1;i<=n;i++){
         for(let j=1;j<=m;j++){
-            if(i===1 && j===1) continue // 시작점
-            if(dp[i][j]===-1) continue
+            if(i===1 && j===1) continue // 집일 경우
+            if(dp[i][j]===-1) continue // 물 웅덩이 경우
             
-            const left = dp[i][j-1]===-1 ? 0:dp[i][j-1]
-            const top = dp[i-1][j]===-1 ? 0 :dp[i-1][j]
-            dp[i][j] = (left + top)% 1000000007
+            const left = dp[i][j-1] >0 ? dp[i][j-1] : 0
+            const top = dp[i-1][j] > 0 ? dp[i-1][j] : 0
+            dp[i][j] = (left + top) % 1000000007
         }
     }
-    return dp[n][m] 
+    return dp[n][m]
 }
