@@ -1,26 +1,30 @@
 function solution(name) {
     const n = name.length
-    
-    // 세로 이동
     let vertical = 0
     
+    // 수직 방향 계산
     for(let i=0;i<n;i++){
         const diff = name.charCodeAt(i) - 65
-        vertical+=Math.min(diff,26-diff)
+        vertical += Math.min(diff,26-diff)
     }
     
-    let horizontal = n - 1;
-    for(let i=0;i<n;i++){
-        let next=i+1
+    let horizontal = n-1 //오른쪽으로 쭉갔을때
+    
+    
+    // 영향이 되는지점 A가 연속으로 있을때
+    // 유턴 지점
+    for(let i=0;i<n-1;i++){
+        let next = i+1
         if(name[next]!=='A') continue
         
-        while(next<n && name[next]=='A') next++
+        // 마지막 A 계산
+        while(name[next]==='A') next++
         
         horizontal=Math.min(
             horizontal,
             i*2+(n-next),
-            (n-next)*2+i
+            (n-next)*2 + i
         )
     }
-    return vertical + horizontal
+    return horizontal+vertical
 }
