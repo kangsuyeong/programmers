@@ -7,15 +7,12 @@ function solution(name) {
         vertical+=Math.min(diff,26-diff)
     }
     
-    let horizontal = n-1 // 오른쪽으로 쭉가는경우
-    
-    // 영향을 받는 경우는 A가 연속으로 있을 경우
-    // 전환점
-    for(let i=0;i<n;i++){
+    let horizontal = n-1
+    // U턴 지점
+    for(let i=0;i<n-1;i++){
         let next = i+1
         if(name[next]!=='A') continue
-        
-        while(next<n && name[next]==='A') next++
+        while(name[next]==='A') next++
         
         horizontal=Math.min(
             horizontal,
