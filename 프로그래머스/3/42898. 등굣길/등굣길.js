@@ -1,8 +1,8 @@
 function solution(m, n, puddles) {
     const dp = Array.from({length:n+1},()=>Array(m+1).fill(0))
     dp[1][1] = 1
-    for(const [m,n] of puddles){
-        dp[n][m] = -1
+    for(const [x,y] of puddles){
+        dp[y][x] = -1
     }
     for(let i=1;i<=n;i++){
         for(let j=1;j<=m;j++){
