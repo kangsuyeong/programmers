@@ -20,8 +20,7 @@ function solution(maps) {
     const visited = Array.from({length:n},()=>Array(m).fill(false))
     
     
-    const dx = [1,-1,0,0]
-    const dy = [0,0,1,-1]
+    const direction = [[-1,0],[1,0],[0,1],[0,-1]]
     
     function isRange(x,y){
         return x>=0 && x<n && y>=0 && y<m
@@ -36,9 +35,9 @@ function solution(maps) {
         
         if(x===n-1 && y===m-1) return dist
         
-        for(let i=0;i<4;i++){
-            const nx = x + dx[i]
-            const ny = y + dy[i]
+        for(const [dx,dy] of direction){
+            const nx = x + dx
+            const ny = y + dy
             if(isRange(nx,ny) && maps[x][y]===1 && !visited[nx][ny]){
                 queue.push([nx,ny,dist+1])
                 visited[nx][ny]=true
