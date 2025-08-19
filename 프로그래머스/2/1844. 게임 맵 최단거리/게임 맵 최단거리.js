@@ -17,7 +17,7 @@ class Queue{
 function solution(maps) {
     const n = maps.length
     const m = maps[0].length
-    const visited = Array.from({length:n},()=>Array(m).fill(false))
+    const dist = Array.from({length:n},()=>Array(m).fill(-1))
     
     
     const direction = [[-1,0],[1,0],[0,1],[0,-1]]
@@ -27,23 +27,21 @@ function solution(maps) {
     }
     
     const queue = new Queue()
-    queue.push([0,0,1]) // [x,y,dist]
-    visited[0][0] = true
+    queue.push([0,0]) // [x,y]
+    dist[0][0]=1
     
     while(queue.size()>0){
-        const [x,y,dist] = queue.pop()
-        
-        if(x===n-1 && y===m-1) return dist
+        const [x,y] = queue.pop()
         
         for(const [dx,dy] of direction){
             const nx = x + dx
             const ny = y + dy
-            if(isRange(nx,ny) && maps[x][y]===1 && !visited[nx][ny]){
-                queue.push([nx,ny,dist+1])
-                visited[nx][ny]=true
+            if(isRange(nx,ny) && maps[nx][ny]===1 && dist[nx][ny]===-1){
+                queue.push([nx,ny])
+                dist[nx][ny]=dist[x][y]+1
             }
         }
     }
     
-    return -1
+    return dist[n-1][m-1]
 }
