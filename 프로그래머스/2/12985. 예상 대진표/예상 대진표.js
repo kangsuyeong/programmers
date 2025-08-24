@@ -1,11 +1,10 @@
-function solution(n,a,b)
-{
-    let result = 0 // 라운드 수
+function solution(n,a,b){
+    let result = 0
     
     while(a!==b){
-        result+=1
         a = Math.ceil(a/2)
         b = Math.ceil(b/2)
+        result++
     }
     return result
 }
