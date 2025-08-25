@@ -11,7 +11,7 @@ function solution(people, limit) {
             left++
         }
         
-        // 기본적으로 오른쪽만 태우기
+        // 기본적으로 오른쪽만  태우기
         right--
         count++
     }
