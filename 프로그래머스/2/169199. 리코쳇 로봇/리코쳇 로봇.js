@@ -14,7 +14,6 @@ class Queue{
     }
 }
 
-// BFS를 써야한다.
 function solution(board) {
     const n = board.length
     const m = board[0].length
