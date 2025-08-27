@@ -21,12 +21,12 @@ function solution(queue1, queue2) {
     
     const total_sum = q1_sum + q2_sum
     if(total_sum%2!==0) return -1
-    const target = total_sum / 2 // 모든 큐의 원소의 합의 반
+    const target = total_sum / 2 
     
     const q1 = new Queue(queue1)
     const q2 = new Queue(queue2)
     
-    for(let i=0;i<n*3;i++){
+    for(let i=0;i<n*4;i++){
         if(q1_sum===q2_sum) return i
         
         if(q1_sum>q2_sum){
