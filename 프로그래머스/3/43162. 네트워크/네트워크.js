@@ -15,10 +15,9 @@ function solution(n, computers) {
     
     for(let i=0;i<n;i++){
         if(!visited.has(i)){
-            dfs(i) // dfs로 탐색
+            dfs(i) // dfs로 탐색 
             count+=1 // 네트워크 1 증가
         }
-        console.log(count,visited)
     }
     return count
 }
