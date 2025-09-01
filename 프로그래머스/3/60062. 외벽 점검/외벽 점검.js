@@ -4,41 +4,46 @@ function getPermutation(arr,n){
     
     arr.forEach((fixed,idx,origin)=>{
         const rest = [...origin.slice(0,idx),...origin.slice(idx+1)]
-        const restPermutaion = getPermutation(rest,n-1)
-        const combined = restPermutaion.map(p=>[fixed,...p])
+        const restPermutation = getPermutation(rest,n-1)
+        const combined = restPermutation.map(p=>[fixed,...p])
         result.push(...combined)
     })
+    
     return result
 }
 
 function solution(n, weak, dist) {
+    
     const linearWeak = [...weak]
+    
     for(let i=0;i<weak.length;i++){
         linearWeak.push(weak[i]+n)
     }
-
-    // 친구 인원수 정하기
+    
+    // 친구 수 정하기
     for(let num=1;num<=dist.length;num++){
         
-        const permutaions = getPermutation(dist,num)
+        // 순열 만들기
+        const permutations = getPermutation(dist,num)
         
-        // 친구 순열 정하기
-        for(const perm of permutaions){
+        // 순열 순회하기
+        for(const perm of permutations){
             
-            // 취약점 시작점 정하기
+            // 취약점 시작 지점 정하기
             for(let start=0;start<weak.length;start++){
                 let friendUsed = 1
-                let covered = weak[start]+perm[0]
-                // 취약점 탐색하기
-                for(let next=start+1;next<start+weak.length;next++){
-                    if(linearWeak[next]>covered){
-                        friendUsed++
-                        if(friendUsed>num) break;
-                        covered=linearWeak[next]+perm[friendUsed-1]
+                let coverd = linearWeak[start] + perm[0] 
+                // 취약점 순회하기
+                for(let cur=start+1;cur<start+weak.length;cur++){
+                    if(coverd < linearWeak[cur]){
+                        friendUsed+=1
+                        if(friendUsed>num) break
+                        
+                        coverd = linearWeak[cur] + perm[friendUsed-1]
                     }
                 }
                 
-                if(friendUsed===num) return num
+                if(num===friendUsed) return num
             }
         }
     }
