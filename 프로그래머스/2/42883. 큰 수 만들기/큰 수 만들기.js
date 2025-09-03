@@ -1,12 +1,14 @@
 function solution(number, k) {
-    const stack=[]
+    const n = number.length
+    const stack = []
     
-    for(const digits of number){
-        while(k>0 && stack.length>0 && stack[stack.length-1] < digits){
+    for(let i=0;i<n;i++){
+        const cur = number[i]
+        while(k>0 && stack.length && cur > stack[stack.length-1]){
             stack.pop()
             k--
         }
-        stack.push(digits)
+        stack.push(cur)
     }
     
     if(k>0){
