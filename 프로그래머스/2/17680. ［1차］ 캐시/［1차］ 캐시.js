@@ -1,24 +1,27 @@
 function solution(cacheSize, cities) {
-    if (cacheSize === 0) return cities.length * 5;
+    
+    if(cacheSize===0) return cities.length*5
+    
+    const cache = []
     let result = 0
-    const caches = []
     
     for(const city of cities){
-        const c = city.toLowerCase()
-        const idx = caches.indexOf(c)
         
-        // hit일 경우
+        const c = city.toLowerCase()
+        const idx = cache.indexOf(c)
+        
+        
+        // hit
         if(idx!==-1){
             result+=1
-            caches.splice(idx,1)
-            caches.push(c)
+            cache.splice(idx,1)
+            cache.push(c)
         }
         else{
             result+=5
-            if(caches.length===cacheSize) caches.shift()
-            caches.push(c)
+            if(cache.length===cacheSize) cache.shift()
+            cache.push(c)
         }
-        
     }
     return result
 }
