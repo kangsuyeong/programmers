@@ -1,20 +1,18 @@
 function solution(cacheSize, cities) {
+    if(cacheSize===0) return cities.length*5 
     
-    if(cacheSize===0) return cities.length*5
-    
-    const cache = []
     let result = 0
+    const cache = []
     
     for(const city of cities){
-        
         const c = city.toLowerCase()
-        const idx = cache.indexOf(c)
+        const index = cache.indexOf(c)
         
         
-        // hit
-        if(idx!==-1){
+        // hit 일경우
+        if(index!==-1){
             result+=1
-            cache.splice(idx,1)
+            cache.splice(index,1)
             cache.push(c)
         }
         else{
