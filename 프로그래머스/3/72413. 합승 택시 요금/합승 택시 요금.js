@@ -1,34 +1,29 @@
 function solution(n, s, a, b, fares) {
-    const distacne = Array.from({length:n+1},()=>Array(n+1).fill(Infinity))
     
-    for(const [node1,node2,dist] of fares){
-        distacne[node1][node2] = dist
-        distacne[node2][node1] = dist
+    // 각 노드별 최소 거리를 저장하는 dp 배열
+    const dp = Array.from({length:n+1},()=>Array(n+1).fill(Infinity))
+    
+    // 자기 자신일 경우 0으로 처리
+    for(let i=1;i<=n;i++) dp[i][i] = 0
+    
+    for(const [node1,node2,cost] of fares){
+        dp[node1][node2] = cost
+        dp[node2][node1] = cost
     }
     
-    // 플루이드 알고리즘으로 각 노드별 최소값 계산하기
-    // 경우점
-    for(let k=1;k<=n;k++){
-        // 시작점
-        for(let i=1;i<=n;i++){
-            // 끝점
-            for(let j=1;j<=n;j++){
-                distacne[i][j] = Math.min(distacne[i][j],distacne[i][k] + distacne[k][j])
+    // 플루이드 워셜로 각 노드별 최소 거리 구하기
+    for(let k=1;k<=n;k++){ // 경유점
+        for(let i=1;i<=n;i++){ // 시작점
+            for(let j=1;j<=n;j++){ // 끝점
+                dp[i][j] = Math.min(dp[i][j],dp[i][k]+dp[k][j])
             }
         }
     }
     
-    for(let i=1;i<=n;i++){
-        for(let j=1;j<=n;j++){
-            if(i===j) distacne[i][j] = 0
-        }
-    }
-    
     let result = Infinity
-    
-    // 합승 구간
+    // 같이 타고 가는 지점을 i
     for(let i=1;i<=n;i++){
-        result=Math.min(result,distacne[s][i]+distacne[i][a] + distacne[i][b],distacne[s][a]+distacne[s][b])
+        result=Math.min(result,dp[s][i]+dp[i][a]+dp[i][b],dp[s][a]+dp[s][b])
     }
     return result
 }
