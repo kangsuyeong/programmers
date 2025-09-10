@@ -5,7 +5,7 @@ function solution(n) {
         const r = n%3
         if(r===0){
             result.push(4)
-            n = Math.floor(n/3) - 1
+            n = Math.floor(n/3) -1
         }
         else{
             result.push(r)
