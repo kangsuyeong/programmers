@@ -1,23 +1,24 @@
 function solution(n, computers) {
-    let count =0 // 네트워크 갯수
-    const visited = new Set() // 방문한 노드
+    let result = 0
+    
+    const visited = Array(n).fill(false)
     
     function dfs(node){
-        visited.add(node)
-        for(let i=0;i<computers.length;i++){
-            if(computers[node][i]===1 && !visited.has(i)){
+        visited[node] = true
+        for(let i=0;i<n;i++){
+            // 연결되어있고, 방문하지 않았을 때 dfs
+            if(computers[node][i] && !visited[i]){
                 dfs(i)
             }
         }
     }
     
-
-    
     for(let i=0;i<n;i++){
-        if(!visited.has(i)){
-            dfs(i) // dfs로 탐색 
-            count+=1 // 네트워크 1 증가
+        if(!visited[i]){
+            dfs(i)
+            result++
         }
     }
-    return count
+    
+    return result
 }
