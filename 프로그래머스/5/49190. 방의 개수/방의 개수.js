@@ -4,33 +4,33 @@ function solution(arrows) {
     const nodeVisited = new Set()
     const edgeVisited = new Set()
     
+    let x = 0
+    let y = 0 
+    
+    nodeVisited.add(`0,0`)
+    
     let result = 0
     
-    let x = 0
-    let y = 0
-    nodeVisited.add(`0,0`)
-    for(const arrow of arrows){
-        
-        for(let i=0;i<2;i++){
-            const [dx,dy] = direction[arrow]
-            const nx = x + dx
-            const ny = y + dy
-            
-            const node = `${nx},${ny}`
-            const edge = `${x},${y}-${nx},${ny}`
-            const edgeReverse = `${nx},${ny}-${x},${y}`
-            if(nodeVisited.has(node) && !edgeVisited.has(edge)){
-                result++
-            }
-            
-            nodeVisited.add(node)
-            edgeVisited.add(edge)
-            edgeVisited.add(edgeReverse)
-            x = nx
-            y= ny
-            
-        }
-        
-    }
+   for(const arrow of arrows){
+       for(let i=1;i<=2;i++){
+           const [dx,dy] = direction[arrow]
+           const nx = dx + x
+           const ny = dy + y
+           
+           const currentNode = `${x},${y}`
+           const nextNode = `${nx},${ny}`
+           const edge = `${currentNode}-${nextNode}`
+           const reverEdge = `${nextNode}-${currentNode}`
+           
+           if(nodeVisited.has(nextNode) && !edgeVisited.has(edge)) result+=1
+           
+           nodeVisited.add(nextNode)
+           edgeVisited.add(edge)
+           edgeVisited.add(reverEdge)
+           
+           x = nx
+           y = ny
+       }
+   }
     return result
 }
