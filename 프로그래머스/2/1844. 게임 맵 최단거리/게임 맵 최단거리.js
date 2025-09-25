@@ -17,7 +17,7 @@ class Queue{
 function solution(maps) {
     const n = maps.length
     const m = maps[0].length
-    const dist = Array.from({length:n},()=>Array(m).fill(-1))
+    const dist = Array.from({length:n },()=>Array(m).fill(-1))
     
     
     const direction = [[-1,0],[1,0],[0,1],[0,-1]]
@@ -37,8 +37,8 @@ function solution(maps) {
             const nx = x + dx
             const ny = y + dy
             if(isRange(nx,ny) && maps[nx][ny]===1 && dist[nx][ny]===-1){
-                queue.push([nx,ny])
                 dist[nx][ny]=dist[x][y]+1
+                queue.push([nx,ny])
             }
         }
     }
