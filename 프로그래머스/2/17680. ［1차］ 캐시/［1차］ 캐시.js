@@ -1,22 +1,22 @@
 function solution(cacheSize, cities) {
     if(cacheSize===0) return cities.length*5
-    let result =0
+    
     const cache = []
+    let result = 0
     
     for(const city of cities){
         const c = city.toLowerCase()
-        const idx = cache.indexOf(c)
+        const index = cache.indexOf(c)
         
-        
-        // hit
-        if(idx!==-1){
-            result+=1
-            cache.splice(idx,1)
+        // miss
+        if(index===-1){
+            result+=5
+            if(cache.length===cacheSize) cache.shift()
             cache.push(c)
         }
         else{
-            result+=5
-            if(cache.length===cacheSize) cache.shift()
+            result+=1
+            cache.splice(index,1)
             cache.push(c)
         }
     }
