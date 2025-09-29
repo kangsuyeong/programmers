@@ -16,20 +16,21 @@ class MinHeap{
         
         return min
     }
-    swap(a,b){
-        [this.items[a],this.items[b]] = [this.items[b],this.items[a]]
-    }
     size(){
         return this.items.length
     }
+    swap(a,b){
+        [this.items[a],this.items[b]] = [this.items[b],this.items[a]]
+    }
     bubbleUp(){
-        let index = this.size() - 1
+        let index = this.size()-1
         while(index>0){
             const parentIndex = Math.floor((index-1)/2)
-            if(this.items[index][0] >= this.items[parentIndex][0]) break;
-            
+
+            if(this.items[index][0] >= this.items[parentIndex][0]) break
+
             this.swap(index,parentIndex)
-            index = parentIndex
+            index = parentIndex 
         }
     }
     bubbleDown(){
@@ -37,7 +38,7 @@ class MinHeap{
         while(index*2+1<=this.size()-1){
             const leftIndex = index*2+1
             const rightIndex = index*2+2
-            const smallerIndex = rightIndex<=this.size()-1 && this.items[rightIndex][0]<this.items[leftIndex][0] ? rightIndex : leftIndex
+            const smallerIndex = rightIndex<=this.size()-1 && this.items[rightIndex][0] < this.items[leftIndex][0] ? rightIndex:leftIndex
             
             if(this.items[index][0] <=this.items[smallerIndex][0]) break;
             
@@ -49,17 +50,16 @@ class MinHeap{
 
 function solution(land, height) {
     const n = land.length
-    const minHeap = new MinHeap()
+    const minHeap =  new MinHeap()
     const visited = Array.from({length:n},()=>Array(n).fill(false))
+    const direction = [[1,0],[-1,0],[0,1],[0,-1]]
+    minHeap.push([0,0,0])
     
-    const direction = [[1,0],[0,-1],[-1,0],[0,1]]
+    let result = 0
     
     function isRange(x,y){
         return 0<=x && x<n && 0<=y && y<n
     }
-    
-    minHeap.push([0,0,0]) // [cost,x,y]
-    let result = 0
     
     while(minHeap.size()>0){
         const [cost,x,y] = minHeap.pop()
@@ -72,11 +72,11 @@ function solution(land, height) {
             const nx = x + dx
             const ny = y + dy
             
-            if(isRange(nx,ny) && !visited[nx][ny]){
-                const diff = Math.abs(land[x][y]-land[nx][ny])
-                const newCost = diff>height ? diff : 0
-                minHeap.push([newCost,nx,ny])
-            }
+            if(!isRange(nx,ny) || visited[nx][ny]) continue
+            
+            const diff = Math.abs(land[x][y]-land[nx][ny])
+            const newCost = diff>height ? diff:0
+            minHeap.push([newCost,nx,ny])
         }
     }
     return result
