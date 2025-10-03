@@ -1,18 +1,20 @@
 function solution(money) {
     const n = money.length
-    // 첫번째 집을 무조건 방문하는 경우
-    const dp1 = Array(n).fill(-1)
-    const dp2 = Array(n).fill(-1)
+    
+    // 첫번째 집을 방문하는 경우
+    const dp1 = Array(n).fill(-Infinity)
+    
+    // 첫번째 집을 방문하지 않는 경우
+    const dp2 = Array(n).fill(-Infinity)
+    
     dp1[0] = money[0]
     dp1[1] = dp1[0]
-    
     for(let i=2;i<n-1;i++){
         dp1[i] = Math.max(dp1[i-1],dp1[i-2]+money[i])
     }
     
     dp2[0] = 0
     dp2[1] = money[1]
-    // dp2[2] = dp2[1]
     for(let i=2;i<n;i++){
         dp2[i] = Math.max(dp2[i-1],dp2[i-2]+money[i])
     }
