@@ -1,37 +1,38 @@
 function solution(n, m, x, y, r, c, k) {
-    const direction =[ ['d',1,0],['l',0,-1],['r',0,1],['u',-1,0]] // [str,dr,dc]
+    const direction = [['d',1,0],['l',0,-1],['r',0,1],['u',-1,0]]
     
     let result = "impossible"
     
-    function isRange(row,col){
-        return 1<=row && row<=n && 1<=col && col<=m
+    function isRange(x,y){
+        return 1<=x && x<=n && 1<=y && y<=m
     }
     
-    function dfs(row,col,depth,string){
-        if(result!=="impossible") return
-        
-        
-        const dist = Math.abs(row-r) + Math.abs(col-c)
-        const remain_move = k-depth
-        
-        if(dist > remain_move || (dist-remain_move)%2!==0) return
-        
+    function dfs(depth,x,y,string){
+        if(result !== "impossible") return
         
         if(depth===k){
-            if(row===r && col===c){
-                result=string
-            }
+            if(x===r && y===c) result = string
             return
         }
         
-        for(const [str,dr,dc] of direction){
-            const nr = row + dr
-            const nc = col + dc
-            if(!isRange(nr,nc)) continue
+        // 현재 남은거리
+        const dist = Math.abs(x-r) + Math.abs(y-c)
+        // 현재 남은 움직임 수
+        const remian_move = k- depth
+        
+        if(dist>remian_move || (remian_move-dist)%2!==0) return
+        
+        for(const [str,dx,dy] of direction){
+            const nx = dx + x
+            const ny = dy + y
             
-            dfs(nr,nc,depth+1,string+str)
+            if(!isRange(nx,ny)) continue
+            
+            dfs(depth+1,nx,ny,string+str)
         }
     }
-    dfs(x,y,0,'')
+    
+    dfs(0,x,y,'')
+    
     return result
 }
