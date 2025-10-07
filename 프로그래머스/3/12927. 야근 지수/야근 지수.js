@@ -13,7 +13,6 @@ class MaxHeap{
         const top = this.items[0]
         this.items[0] = this.items.pop()
         this.bubbleDown()
-        
         return top
     }
     size(){
@@ -27,7 +26,7 @@ class MaxHeap{
         while(index>0){
             const parentIndex = Math.floor((index-1)/2)
             
-            if(this.items[index] <= this.items[parentIndex]) break
+            if(this.items[index] <= this.items[parentIndex]) break;
             
             this.swap(index,parentIndex)
             index = parentIndex
@@ -35,12 +34,12 @@ class MaxHeap{
     }
     bubbleDown(){
         let index = 0
-        while(index*2 + 1 <=this.size()-1){
+        while(index*2+1 <= this.size()-1){
             const leftIndex = index*2 + 1
             const rightIndex = index*2 + 2
             const biggerIndex = rightIndex <= this.size()-1 && this.items[rightIndex] > this.items[leftIndex] ? rightIndex : leftIndex
             
-            if(this.items[index] >=this.items[biggerIndex]) break;
+            if(this.items[index]>= this.items[biggerIndex]) break;
             
             this.swap(index,biggerIndex)
             index = biggerIndex
@@ -49,19 +48,20 @@ class MaxHeap{
 }
 
 function solution(n, works) {
-    
     const totalWork = works.reduce((acc,cur)=>acc+cur,0)
-    if(totalWork <= n) return 0
+    if(totalWork<=n) return 0
     
     const maxHeap = new MaxHeap()
+    
     for(const work of works){
         maxHeap.push(work)
     }
     
-
     for(let i=0;i<n;i++){
         const item = maxHeap.pop()
         maxHeap.push(item-1)
     }
+    
     return maxHeap.items.reduce((acc,cur)=>acc+Math.pow(cur,2),0)
+    
 }
