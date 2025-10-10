@@ -3,7 +3,7 @@ function solution(n, stations, w) {
     const bandWidth = 2*w + 1 
     let index = 1 // 현재 인덱스
     
-    // 오름차순 정렬
+    // 오름차순 정 렬
     stations.sort((a,b)=>a-b)
     
     for(const station of stations){
@@ -17,7 +17,7 @@ function solution(n, stations, w) {
         index = right + 1
     }
     
-    if(index<=n){
+    if(index<=n ){
         const length = n-index + 1
         count += Math.ceil(length/bandWidth)
     }
