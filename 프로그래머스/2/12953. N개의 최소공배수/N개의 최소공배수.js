@@ -14,6 +14,5 @@ function solution(arr) {
     for(let i=1;i<arr.length;i++){
         result = lcm(result,arr[i])
     }
-    
     return result
 }
