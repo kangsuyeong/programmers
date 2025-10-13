@@ -1,5 +1,5 @@
 function solution(A, B) {
-    A.sort((a,b)=>a-b)
+    A.sort((a,b)=>a-b )
     B.sort((a,b)=>a-b)
     
     let score = 0
