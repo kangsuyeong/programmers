@@ -1,29 +1,36 @@
 function solution(enroll, referral, seller, amount) {
-    
+    // 총 사람의 수
     const n = enroll.length
     
+    // 판매량
+    const m = seller.length
+    
+    // 추천인을 저장할 map
     const referral_map = {}
-    const total_map = {}
+    
+    // 사람당 총 이익을 저장할 map
+    const money_map = {}
     
     for(let i=0;i<n;i++){
         referral_map[enroll[i]] = referral[i]
-        total_map[enroll[i]] = 0
+        money_map[enroll[i]] = 0
     }
     
-    for(let i=0;i<amount.length;i++){
+    for(let i=0;i<m;i++){
         let 이익 = amount[i]*100
-        let 사람 = seller[i]
-        while(사람!=='-'){
+        let 소득자 = seller[i]
+        while(소득자!=='-'){
             if(이익<10){
-                total_map[사람]+=이익
-                break;
+                money_map[소득자]+=이익
+                break
             }
             
-            const 추천인지급이익 = Math.floor(이익*0.1)
-            total_map[사람] += 이익-추천인지급이익
-            이익 = 추천인지급이익
-            사람 = referral_map[사람]
+            const 줘야하는돈 = Math.floor(이익*0.1)
+            money_map[소득자]+=이익-줘야하는돈
+            
+            이익 = 줘야하는돈
+            소득자 = referral_map[소득자]
         }
     }
-    return enroll.map(v=>total_map[v])
+    return enroll.map(v=>money_map[v])
 }
