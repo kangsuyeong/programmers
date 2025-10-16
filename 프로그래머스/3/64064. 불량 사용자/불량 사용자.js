@@ -4,7 +4,7 @@ function isMatch(u_id,b_id){
     for(let i=0;i<u_id.length;i++){
         if(b_id[i]==='*') continue
         
-        if(u_id[i]!==b_id[i]) return false
+        if(u_id[i]!==b_id[i])  return false
     }
     return true
 }
