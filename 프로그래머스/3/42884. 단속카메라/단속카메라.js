@@ -1,6 +1,6 @@
 function solution(routes) {
     let result = 0
-    let index = -Infinity
+    let index = -Infinity 
     
     routes.sort((a,b)=>a[1]-b[1])
     
