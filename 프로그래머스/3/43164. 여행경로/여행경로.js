@@ -2,7 +2,7 @@ function solution(tickets) {
     // 알파벳 순서대로 정렬
     tickets.sort()
     
-    let result = []
+    let result = [ ]
     const visited = Array(tickets.length).fill(false)
     let found = false
     
