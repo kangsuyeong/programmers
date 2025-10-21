@@ -5,7 +5,7 @@ function solution(gems) {
     let left = 0
     let right = 0
     let min_length = n
-    let result = [1,n]
+    let result = [1,n] 
     
     while(right<n){
         const gemsRight = gems[right]
