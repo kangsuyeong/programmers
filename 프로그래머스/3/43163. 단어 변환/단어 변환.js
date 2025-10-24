@@ -1,10 +1,7 @@
 function solution(begin, target, words) {
-    // 전체 단어 개수
-    const n= words.length
+    const n = words.length
     
-    // 문자열 길이
-    const m = begin.length
-    const visited = new Set()
+    const visited = Array(n).fill(false)
     
     const queue = []
     queue.push([begin,0])
@@ -14,21 +11,18 @@ function solution(begin, target, words) {
         if(currentWord===target) return depth
         
         for(let i=0;i<n;i++){
-            const item = words[i]
-            if(visited.has(item)) continue
-            
-            // 몇개의 단어가 같은지
-            let count =0
-            for(let j=0;j<m;j++){
-                if(currentWord[j]===item[j]) count++
+            if(visited[i]) continue
+            let count = 0
+            for(let j=0;j<begin.length;j++){
+                if(currentWord[j]===words[i][j]) count++
             }
             
-            if(count===m-1){
-                queue.push([item,depth+1])
-                visited.add(item)
+            if(count===begin.length-1){
+                queue.push([words[i],depth+1])
+                visited[i] = true
             }
+
         }
-        
         
     }
     return 0
