@@ -10,7 +10,6 @@ function lcm(a,b){
 
 function solution(arr) {
     let result = arr[0]
-    
     for(let i=1;i<arr.length;i++){
         result = lcm(result,arr[i])
     }
