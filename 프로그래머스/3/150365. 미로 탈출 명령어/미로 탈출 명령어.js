@@ -7,29 +7,34 @@ function solution(n, m, x, y, r, c, k) {
     
     let result = "impossible"
     
-    function dfs(depth,x,y,string){
-        
-        if(result!=='impossible') return
+    function dfs(x,y,string,depth){
+        if(result!=="impossible") return
         
         if(depth===k){
-            if(x===r && y===c) result = string
+            if(x===r && y===c){
+                result = string
+            }
             return
         }
         
-        const dist = Math.abs(x-r) + Math.abs(y-c)
-        const remain_move = k-depth
+        // 남은 거리
+        const distacne = Math.abs(x-r) + Math.abs(y-c)
         
-        if(dist>remain_move || (remain_move-dist)%2!==0) return
+        // 움직일 수 있는 수
+        const move = k - depth
+        
+        if(distacne > move || (move-distacne)%2!==0) return
+        
         
         for(const [str,dx,dy] of direction){
-            const nx = x+dx
-            const ny = y+dy
+            const nx = dx + x
+            const ny = dy + y
             
             if(!isRange(nx,ny)) continue
-            
-            dfs(depth+1,nx,ny,string+str)
+            dfs(nx,ny,string+str,depth+1)
         }
+        
     }
-    dfs(0,x,y,'')
+    dfs(x,y,'',0)
     return result
 }
