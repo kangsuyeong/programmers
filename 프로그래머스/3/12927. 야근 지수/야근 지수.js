@@ -27,7 +27,7 @@ class MaxHeap{
         while(index>0){
             const parentIndex = Math.floor((index-1)/2)
             
-            if(this.items[index] <=this.items[parentIndex]) break;
+            if(this.items[index] <= this.items[parentIndex]) break
             
             this.swap(index,parentIndex)
             index = parentIndex
@@ -35,13 +35,12 @@ class MaxHeap{
     }
     bubbleDown(){
         let index = 0
-        while(index*2 + 1 <= this.size()-1){
+        while(index*2 + 1<=this.size()-1){
             const leftIndex = index*2 + 1
             const rightIndex = index*2 + 2
-            const biggerIndex = rightIndex <= this.size()-1 && this.items[rightIndex] > this.items[leftIndex] ? rightIndex : leftIndex
+            const biggerIndex = rightIndex <= this.size() - 1 && this.items[rightIndex] > this.items[leftIndex] ? rightIndex : leftIndex
             
             if(this.items[index] >= this.items[biggerIndex]) break;
-            
             this.swap(index,biggerIndex)
             index = biggerIndex
         }
@@ -49,10 +48,8 @@ class MaxHeap{
 }
 
 function solution(n, works) {
-    
-    const total_work = works.reduce((acc,cur)=>acc+cur,0)
-    
-    if(total_work<=n) return 0
+    const total = works.reduce((acc,cur)=>acc+cur,0)
+    if(total<=n) return 0
     
     const maxHeap = new MaxHeap()
     
