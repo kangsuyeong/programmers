@@ -1,33 +1,34 @@
 function solution(enroll, referral, seller, amount) {
-    // 총인원수
+    // 조직원 수
     const n = enroll.length
     
-    // 거래량
-    const m = amount.length
+    // 거래 수
+    const m  = amount.length
+    
     const referral_map = {}
-    const total_map = {}
+    const money_map = {}
     
     for(let i=0;i<n;i++){
         referral_map[enroll[i]] = referral[i]
-        total_map[enroll[i]] = 0
+        money_map[enroll[i]] = 0
     }
     
     for(let i=0;i<m;i++){
-        let 판매금액 = amount[i] * 100
-        let 판매자 = seller[i]
+        let 판매금 = amount[i]*100
+        let 수혜자 = seller[i]
         
-        while(판매자 !== '-'){
-            if(판매금액 < 10){
-                total_map[판매자] += 판매금액
+        while(수혜자 !=='-'){
+            if(판매금 < 10){
+                money_map[수혜자]+=판매금
                 break
             }
             
-            const 전달금액 = Math.floor(판매금액*0.1)
-            total_map[판매자] += 판매금액 - 전달금액
+            const 추천인금액 = Math.floor(판매금 * 0.1)
+            money_map[수혜자]+=판매금 - 추천인금액
+            판매금 = 추천인금액
+            수혜자 = referral_map[수혜자]
             
-            판매금액 = 전달금액
-            판매자 = referral_map[판매자]
         }
     }
-    return enroll.map(v=>total_map[v])
+    return enroll.map(v=>money_map[v])
 }
