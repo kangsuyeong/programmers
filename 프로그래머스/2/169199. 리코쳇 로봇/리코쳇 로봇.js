@@ -1,7 +1,7 @@
 class Queue{
     items=[]
     rear=0
-    front=0
+    front=0 
     push(item){
         this.items.push(item)
         this.rear++
